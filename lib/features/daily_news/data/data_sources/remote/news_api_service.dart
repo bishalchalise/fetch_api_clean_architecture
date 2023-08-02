@@ -9,7 +9,7 @@ part 'news_api_service.g.dart';
 abstract class NewsApiService {
   factory NewsApiService(Dio dio) = _NewsApiService;
   @GET('/top-headlines')
-  Future<HttpResponse<ArticleModel>> getNewsArticle({
+  Future<HttpResponse<List<ArticleModel>>> getNewsArticle({
       @Query("apiKey") String ? apiKey, 
       @Query("country") String ? country, 
       @Query("category") String ? category , 

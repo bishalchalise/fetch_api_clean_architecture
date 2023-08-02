@@ -1,97 +1,35 @@
+import 'package:news_app_clean_arch/features/daily_news/domain/entities/articles.dart';
 
+class ArticleModel extends ArticleEntity {
+  const ArticleModel({
+    String? id,
+    String? author,
+    String? title,
+    String? description,
+    String? url,
+    String? urlToImage,
+    String? publishedAt,
+    String? content,
+  }): super(
+    id: id,
+    author: author,
+    title: title,
+    description: description,
+    url: url,
+    urlToImage: urlToImage,
+    publishedAt: publishedAt,
+    content: content,
+  );
 
-import 'dart:convert';
-
-ArticleModel articleModelFromJson(String str) => ArticleModel.fromJson(json.decode(str));
-
-String articleModelToJson(ArticleModel data) => json.encode(data.toJson());
-
-class ArticleModel {
-    final String? status;
-    final int? totalResults;
-    final List<Article>? articles;
-
-    ArticleModel({
-        this.status,
-        this.totalResults,
-        this.articles,
-    });
-
-    factory ArticleModel.fromJson(Map<String, dynamic> json) => ArticleModel(
-        status: json["status"],
-        totalResults: json["totalResults"],
-        articles: json["articles"] == null ? [] : List<Article>.from(json["articles"]!.map((x) => Article.fromJson(x))),
+  factory ArticleModel.fromJson(Map<String, dynamic> map) {
+    return ArticleModel(
+      author: map['author'] ?? "",
+      title: map['title'] ?? "",
+      description: map['description'] ?? "",
+      url: map['url'] ?? "",
+      urlToImage: map['urlToImage'] ?? "",
+      publishedAt: map['publishedAt'] ?? "",
+      content: map['content'] ?? "",
     );
-
-    Map<String, dynamic> toJson() => {
-        "status": status,
-        "totalResults": totalResults,
-        "articles": articles == null ? [] : List<dynamic>.from(
-          articles!.map((x) => x.toJson()),
-          ),
-    };
-}
-
-class Article {
-    final Source? source;
-    final String? author;
-    final String? title;
-    final String? description;
-    final String? url;
-    final String? urlToImage;
-    final DateTime? publishedAt;
-    final String? content;
-
-    Article({
-        this.source,
-        this.author,
-        this.title,
-        this.description,
-        this.url,
-        this.urlToImage,
-        this.publishedAt,
-        this.content,
-    });
-
-    factory Article.fromJson(Map<String, dynamic> json) => Article(
-        source: json["source"] == null ? null : Source.fromJson(json["source"]),
-        author: json["author"],
-        title: json["title"],
-        description: json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"],
-        publishedAt: json["publishedAt"] == null ? null : DateTime.parse(json["publishedAt"]),
-        content: json["content"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "source": source?.toJson(),
-        "author": author,
-        "title": title,
-        "description": description,
-        "url": url,
-        "urlToImage": urlToImage,
-        "publishedAt": publishedAt?.toIso8601String(),
-        "content": content,
-    };
-}
-
-class Source {
-    final String? id;
-    final String? name;
-
-    Source({
-        this.id,
-        this.name,
-    });
-
-    factory Source.fromJson(Map<String, dynamic> json) => Source(
-        id: json["id"],
-        name: json["name"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-    };
+  }
 }
